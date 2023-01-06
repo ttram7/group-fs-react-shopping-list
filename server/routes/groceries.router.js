@@ -38,6 +38,7 @@ router.post('/', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
+    console.log('in Delete with req.params.id, ', req.params.id)
     const groceryItemId = req.params.id; 
     const queryText = `DELETE FROM "groceries" WHERE "id" = $1`;
     pool.query(queryText, [groceryItemId])

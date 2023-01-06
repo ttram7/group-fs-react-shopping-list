@@ -46,7 +46,7 @@ function App() {
             }
         })
         .then((response) => {
-            console.log('response from db: ', response);
+            console.log('POST response from db: ', response);
             setName('');
             setQuantity('');
             setUnit('');
@@ -55,19 +55,47 @@ function App() {
         .catch((error) => {
             console.log('error making POST request: ', error);
         });
-
     }
 
     //delete request
-    const removeItem = (event) => {
-        console.log('delete item clicked');
+    const removeItem = (id) => {
+        console.log('delete item clicked: ', id);
+        Axios({
+            method: 'DELETE',
+            url: `/groceryList/${id}`,
+        })
+        .then((response) => {
+            console.log('DELETE response from db: ', response);
+            fetchList();
+        })
+        .catch((error) => {
+          console.log('error making Delete request: ', error);
+        });
+    }
+
+    //PUT request
+    const itemPurchased = (id) => {
+        console.log('Purchased button was clicked');
         
+        Axios({
+            method: 'PUT',
+            url: `/groceryList/${id}`,
+            data: {
+                name: name,
+                quantity: quantity,
+                unit: unit,
+                purchased: 'YES',
+            }
+        })
+        .then((response) => {
+            console.log('PUT response from db: ', response);
+            fetchList();
+        })
+        .catch((error) => {
+            console.log('error making PUT request: ', error);
+        });
     }
     
-    //PUT request
-    const itemPurchased = (event) => {
-        console.log('Purchased button was clicked');
-    }
 
     return (
         <div className="App">
@@ -104,23 +132,24 @@ function App() {
 
             <ul>
                 <div>
+                    
                     {shoppingList.map(item => (
-                        <>
-                    <h2 key={item.id}> 
+                    <>
+                    <h3> 
                         {item.name} 
-                    </h2>
+                    </h3>
                     
                     <h3>
                         how many: {item.quantity}
                     </h3>
                     
-                    <h3 key={item.id}> 
+                    <h3> 
                         unit: {item.unit}                   
                     </h3>
-                    <button class="remove" onClick={(event) => removeItem()}>Remove Item</button>
-                    <button class="purchased" onClick={(event) => itemPurchased()}>Purchased</button>
+                    <button className="remove" onClick={(event) => removeItem(item.id)}>Remove Item</button>
+                    <button id={item.id} className="purchased" onClick={(event) => itemPurchased(item.id)}>Purchased</button>
                     <hr />
-                    </>
+                </>
                 ))}
             </div>
             </ul>
