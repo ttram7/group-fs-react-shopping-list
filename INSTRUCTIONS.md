@@ -15,16 +15,16 @@ We want to store a list of items to buy in a database, so we can build up our li
 
 There should be a form at the top of the page where we can add new items to the list.
 
-  - 3 inputs: 
-    - Name - text, allow up to 80 characters (required)
-    - Quantity - allow for decimal numbers (required)
-    - Unit - text, allow up to 20 characters (optional)
+  [x] - 3 inputs: 
+  [x] - Name - text, allow up to 80 characters (required)
+  [x] - Quantity - allow for decimal numbers (required)
+  [x] - Unit - text, allow up to 20 characters (optional)
 
-  - Submit button to POST request
+  [x] - Submit button to POST request
 
 When the page first loads, all the existing items should be displayed with the quantity & unit combined together for display. 
-  - GET Request on page load
-  - sort alphabetically
+  [x] - GET Request on page load
+  [x] - sort alphabetically
 
 Each item should also have an option to remove it from the list or mark it as purchased. 
   - Append each item with 'remove' button

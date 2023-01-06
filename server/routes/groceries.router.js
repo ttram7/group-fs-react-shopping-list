@@ -22,10 +22,11 @@ router.get('/', (req, res) => {
 // Setup a POST route
 router.post('/', (req, res) => {
     const groceryItem = req.body;
-    const sqlText = `INSERT INTO groceries (name, quantity, unit)
-                     VALUES ($1, $2, $3)`;
+    const purchaseStatus = 'NO'
+    const sqlText = `INSERT INTO groceries (name, quantity, unit, purchased)
+                     VALUES ($1, $2, $3, $4)`;
     // sanitize inputs
-    pool.query(sqlText, [groceryItem.name, groceryItem.quantity, groceryItem.unit])
+    pool.query(sqlText, [groceryItem.name, groceryItem.quantity, groceryItem.unit, purchaseStatus])
         .then((result) => {
             console.log(`Added grocery item to the database`, groceryItem);
             res.sendStatus(201);
@@ -34,6 +35,33 @@ router.post('/', (req, res) => {
             console.log(`Error making database query ${sqlText}`, error);
             res.sendStatus(500); 
         })
+})
+
+router.delete('/:id', (req, res) => {
+    const groceryItemId = req.params.id; 
+    const queryText = `DELETE FROM "groceries" WHERE "id" = $1`;
+    pool.query(queryText, [groceryItemId])
+    .then((result) => {
+        res.sendStatus(200);
+    }).catch((error) => {
+        res.sendStatus(500);
+    });
+});
+
+router.put('/:id', (req, res) => {
+    console.log('in PUT request with item id: ', req.params.id);
+    
+    const queryText = `UPDATE "groceries" SET "purchased"='YES' WHERE "id"=$1;`;
+    
+    pool.query(queryText, [req.params.id])
+    .then((dbResponse) => {
+        console.log('dbResponse: ', dbResponse);
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log(error);
+        res.sendStatus(500);
+    })
 })
 
 

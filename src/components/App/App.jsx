@@ -58,6 +58,17 @@ function App() {
 
     }
 
+    //delete request
+    const removeItem = (event) => {
+        console.log('delete item clicked');
+        
+    }
+    
+    //PUT request
+    const itemPurchased = (event) => {
+        console.log('Purchased button was clicked');
+    }
+
     return (
         <div className="App">
             <Header />
@@ -106,6 +117,8 @@ function App() {
                     <h3 key={item.id}> 
                         unit: {item.unit}                   
                     </h3>
+                    <button class="remove" onClick={(event) => removeItem()}>Remove Item</button>
+                    <button class="purchased" onClick={(event) => itemPurchased()}>Purchased</button>
                     <hr />
                     </>
                 ))}
