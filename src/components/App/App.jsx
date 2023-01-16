@@ -3,6 +3,9 @@ import Header from '../Header/Header.jsx'
 import './App.css';
 import Axios from 'axios';
 import {useState, useEffect} from 'react';
+import ShoppingList from '../ShoppingList/ShoppingList';
+// import ShoppingListItemButtons from '../ShoppingListItemButtons/ShoppingListItemButtons';
+
 
 
 function App() {
@@ -10,6 +13,7 @@ function App() {
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('');
     const [unit, setUnit] = useState('');
+    const [purchased, setPurchased] = useState('NO');
     
     useEffect(() => {
         fetchList();
@@ -129,33 +133,42 @@ function App() {
                 <button type="submit">Save</button>
             </form>
             
-
+            
             <ul>
                 <div>
                     
-                    {shoppingList.map(item => (
-                    <>
-                    <h3> 
-                        {item.name} 
-                    </h3>
-                    
-                    <h3>
-                        how many: {item.quantity}
-                    </h3>
-                    
-                    <h3> 
-                        unit: {item.unit}                   
-                    </h3>
-                    <button className="remove" onClick={(event) => removeItem(item.id)}>Remove Item</button>
-                    <button id={item.id} className="purchased" onClick={(event) => itemPurchased(item.id)}>Purchased</button>
-                    <hr />
-                </>
-                ))}
+                   {shoppingList.map(item => (
+                            <>
+                                <h3> 
+                                    {item.name} 
+                                </h3>
+                                
+                                <h3>
+                                    how many: {item.quantity}
+                                </h3>
+                                
+                                <h3> 
+                                    unit: {item.unit}                   
+                                </h3> 
+                                <button className="remove" onClick={(event) => removeItem(item.id)}>Remove Item</button>
+                                <button id={item.id} className="purchased" onClick={(event) => itemPurchased(item.id)}>Purchased</button>
+                                
+                                <hr />
+                            </>
+                                 // purchaseStatus(purchased); */}
+                            // <ShoppingList list={shoppingList}/>
+                            //  <ShoppingListItemButtons item={item} />
+
+                       
+                    ))
+                    } 
             </div>
             </ul>
         </div>
         
     );
 }
+
+
 
 export default App;
